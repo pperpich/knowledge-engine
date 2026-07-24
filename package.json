@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "catalog": "node scripts/build-catalog.mjs"
+    "validate": "node scripts/validate.mjs",
+    "catalog": "node scripts/build-catalog.mjs",
+    "check": "npm run validate && npm run catalog"
   }
 }
