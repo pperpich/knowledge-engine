@@ -3,6 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const entriesRoot = path.join(root, "entries");
+const referencesRoot = path.join(root, "references");
 const catalogRoot = path.join(root, "catalog");
 
 async function walk(directory) {
@@ -18,7 +19,7 @@ async function walk(directory) {
   for (const item of items) {
     const fullPath = path.join(directory, item.name);
     if (item.isDirectory()) files.push(...await walk(fullPath));
-    else if (item.isFile() && item.name.endsWith(".md")) files.push(fullPath);
+    else if (item.isFile() && item.name.endsWith(".md") && item.name !== "README.md") files.push(fullPath);
   }
   return files;
 }
@@ -38,21 +39,30 @@ function slug(value) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-const files = (await walk(entriesRoot)).sort();
-const entries = [];
+async function loadRecords(directory) {
+  const files = (await walk(directory)).sort();
+  const records = [];
 
-for (const filePath of files) {
-  const content = await fs.readFile(filePath, "utf8");
-  const metadata = parseMetadata(content, filePath);
-  entries.push({
-    ...metadata,
-    path: path.relative(root, filePath).split(path.sep).join("/")
-  });
+  for (const filePath of files) {
+    const content = await fs.readFile(filePath, "utf8");
+    const metadata = parseMetadata(content, filePath);
+    records.push({
+      ...metadata,
+      path: path.relative(root, filePath).split(path.sep).join("/")
+    });
+  }
+
+  return records.sort((a, b) => a.id.localeCompare(b.id));
 }
 
-entries.sort((a, b) => a.id.localeCompare(b.id));
+function jsonl(records) {
+  return records.map((record) => JSON.stringify(record)).join("\n") + (records.length ? "\n" : "");
+}
 
+const entries = await loadRecords(entriesRoot);
+const references = await loadRecords(referencesRoot);
 const edges = [];
+
 for (const entry of entries) {
   for (const topic of entry.topics ?? []) {
     edges.push({ from: entry.id, type: "has_topic", to: `topic:${topic}` });
@@ -60,11 +70,23 @@ for (const entry of entries) {
   for (const entity of entry.entities ?? []) {
     edges.push({ from: entry.id, type: "mentions", to: `entity:${slug(entity)}`, label: entity });
   }
+  for (const reference of entry.references ?? []) {
+    edges.push({ from: entry.id, type: "cites", to: reference });
+  }
   for (const related of entry.related ?? []) {
     edges.push({ from: entry.id, type: "related_to", to: related });
   }
   if (entry.experiment) {
     edges.push({ from: entry.id, type: "proposes", to: entry.experiment });
+  }
+}
+
+for (const reference of references) {
+  for (const topic of reference.topics ?? []) {
+    edges.push({ from: reference.id, type: "has_topic", to: `topic:${topic}` });
+  }
+  for (const related of reference.related ?? []) {
+    edges.push({ from: reference.id, type: "related_to", to: related });
   }
 }
 
@@ -75,13 +97,8 @@ edges.sort((a, b) =>
 );
 
 await fs.mkdir(catalogRoot, { recursive: true });
-await fs.writeFile(
-  path.join(catalogRoot, "entries.jsonl"),
-  entries.map((entry) => JSON.stringify(entry)).join("\n") + (entries.length ? "\n" : "")
-);
-await fs.writeFile(
-  path.join(catalogRoot, "edges.jsonl"),
-  edges.map((edge) => JSON.stringify(edge)).join("\n") + (edges.length ? "\n" : "")
-);
+await fs.writeFile(path.join(catalogRoot, "entries.jsonl"), jsonl(entries));
+await fs.writeFile(path.join(catalogRoot, "references.jsonl"), jsonl(references));
+await fs.writeFile(path.join(catalogRoot, "edges.jsonl"), jsonl(edges));
 
-console.log(`Indexed ${entries.length} entries and ${edges.length} edges.`);
+console.log(`Indexed ${entries.length} entries, ${references.length} references, and ${edges.length} edges.`);
