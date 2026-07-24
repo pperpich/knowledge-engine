@@ -4,18 +4,81 @@
   "title": "Experiment metadata",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "title", "date", "kind", "namespace", "topics", "status", "hypothesis", "success_criterion", "stop_condition", "related"],
+  "required": [
+    "id",
+    "title",
+    "date",
+    "kind",
+    "namespace",
+    "topics",
+    "references",
+    "status",
+    "hypothesis",
+    "success_criterion",
+    "stop_condition",
+    "related"
+  ],
   "properties": {
-    "id": {"type": "string", "pattern": "^experiment:[a-z0-9:_-]+$"},
-    "title": {"type": "string", "minLength": 1},
-    "date": {"type": "string", "format": "date"},
-    "kind": {"const": "experiment"},
-    "namespace": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
-    "topics": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-    "status": {"enum": ["proposed", "active", "completed", "abandoned"]},
-    "hypothesis": {"type": "string", "minLength": 1},
-    "success_criterion": {"type": "string", "minLength": 1},
-    "stop_condition": {"type": "string", "minLength": 1},
-    "related": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+    "id": {
+      "type": "string",
+      "pattern": "^experiment:[a-z0-9:_-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "kind": {
+      "const": "experiment"
+    },
+    "namespace": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "active",
+        "completed",
+        "abandoned"
+      ]
+    },
+    "hypothesis": {
+      "type": "string",
+      "minLength": 1
+    },
+    "success_criterion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^reference:[a-z0-9:_@.-]+$"
+      },
+      "uniqueItems": true
+    }
   }
 }
