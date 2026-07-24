@@ -5,6 +5,7 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "schema_version",
     "id",
     "title",
     "kind",
@@ -21,6 +22,9 @@
     "related"
   ],
   "properties": {
+    "schema_version": {
+      "const": 1
+    },
     "id": {
       "type": "string",
       "pattern": "^reference:[a-z0-9:_@.-]+$"
@@ -30,7 +34,13 @@
       "minLength": 1
     },
     "kind": {
-      "enum": ["paper", "documentation", "repository", "standard", "web"]
+      "enum": [
+        "paper",
+        "documentation",
+        "repository",
+        "standard",
+        "web"
+      ]
     },
     "publisher": {
       "type": "string",
@@ -41,7 +51,10 @@
       "format": "uri"
     },
     "published_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date"
     },
     "accessed_at": {
@@ -50,30 +63,46 @@
     },
     "authors": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "uniqueItems": true
     },
     "topics": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "uniqueItems": true
     },
     "reliability": {
-      "enum": ["primary", "secondary", "tertiary"]
+      "enum": [
+        "primary",
+        "secondary",
+        "tertiary"
+      ]
     },
     "mutable": {
       "type": "boolean"
     },
     "status": {
-      "enum": ["active", "deprecated", "unavailable"]
+      "enum": [
+        "active",
+        "deprecated",
+        "unavailable"
+      ]
     },
     "identifiers": {
       "type": "object",
-      "additionalProperties": {"type": "string"}
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "related": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "uniqueItems": true
     }
   }
