@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/pperpich/knowledge-engine/schema/experiment.schema.json",
+  "title": "Experiment metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "date", "kind", "namespace", "topics", "status", "hypothesis", "success_criterion", "stop_condition", "related"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^experiment:[a-z0-9:_-]+$"},
+    "title": {"type": "string", "minLength": 1},
+    "date": {"type": "string", "format": "date"},
+    "kind": {"const": "experiment"},
+    "namespace": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "topics": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "status": {"enum": ["proposed", "active", "completed", "abandoned"]},
+    "hypothesis": {"type": "string", "minLength": 1},
+    "success_criterion": {"type": "string", "minLength": 1},
+    "stop_condition": {"type": "string", "minLength": 1},
+    "related": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}
