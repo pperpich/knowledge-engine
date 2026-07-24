@@ -7,6 +7,7 @@
   "namespace": "ai-knowledge",
   "topics": [],
   "entities": [],
+  "references": [],
   "experiment": "experiment:YYYY-MM-DD:slug",
   "related": [],
   "confidence": "medium",
