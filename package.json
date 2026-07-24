@@ -1,0 +1,10 @@
+{
+  "name": "knowledge-engine",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "catalog": "node scripts/build-catalog.mjs",
+    "check": "npm run validate && npm run catalog"
+  }
+}

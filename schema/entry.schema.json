@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/pperpich/knowledge-engine/schema/entry.schema.json",
+  "title": "Knowledge entry metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "date",
+    "kind",
+    "namespace",
+    "topics",
+    "entities",
+    "related",
+    "references",
+    "confidence",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9:_-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "kind": {
+      "enum": [
+        "daily-brief",
+        "knowledge-note"
+      ]
+    },
+    "namespace": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "experiment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "published",
+        "superseded"
+      ]
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^reference:[a-z0-9:_@.-]+$"
+      },
+      "uniqueItems": true
+    }
+  }
+}

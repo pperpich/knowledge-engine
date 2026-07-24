@@ -1,0 +1,22 @@
+# Controlled topic vocabulary.
+# Add topics deliberately; prefer an existing topic over a near-synonym.
+
+ai-builder:
+  - agent-tooling
+  - api-platforms
+  - benchmarks
+  - developer-tools
+  - evaluation
+  - mcp
+  - model-releases
+  - safety-and-security
+
+knowledge-systems:
+  - context-engineering
+  - knowledge-graphs
+  - memory
+  - personal-knowledge-management
+  - provenance
+  - rag
+  - reranking
+  - retrieval
