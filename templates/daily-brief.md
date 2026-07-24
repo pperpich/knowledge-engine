@@ -1,5 +1,6 @@
 ---
 {
+  "schema_version": 1,
   "id": "brief:ai-knowledge:YYYY-MM-DD",
   "title": "Descriptive title",
   "date": "YYYY-MM-DD",
