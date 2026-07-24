@@ -1,5 +1,6 @@
 ---
 {
+  "schema_version": 1,
   "id": "experiment:YYYY-MM-DD:slug",
   "title": "Experiment title",
   "date": "YYYY-MM-DD",
