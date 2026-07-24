@@ -4,7 +4,7 @@
   "id": "reference:arxiv:2605.27105",
   "title": "Lost in the Evidence? Reproducing Document Position and Context Size Effects in RAG",
   "kind": "paper",
-  "publisher": "arXiv",
+  "publisher": "SIGIR 2026 / arXiv",
   "canonical_url": "https://arxiv.org/abs/2605.27105",
   "published_at": "2026-05-26",
   "accessed_at": "2026-07-24",
@@ -13,7 +13,7 @@
   "reliability": "primary",
   "mutable": false,
   "status": "active",
-  "identifiers": {"arxiv": "2605.27105"},
+  "identifiers": {"arxiv": "2605.27105", "doi": "10.48550/arXiv.2605.27105"},
   "related": []
 }
 ---
@@ -22,7 +22,7 @@
 
 ## Annotation
 
-Reproducibility study of document ordering and context-size effects in contemporary RAG systems.
+SIGIR 2026 reproducibility study of document ordering and context-size effects in contemporary RAG systems. The canonical record points to the arXiv version for durable public access.
 
 ## Relevant evidence
 
