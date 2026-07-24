@@ -1,0 +1,8 @@
+{
+  "name": "knowledge-engine",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "catalog": "node scripts/build-catalog.mjs"
+  }
+}
