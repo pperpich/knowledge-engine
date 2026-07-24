@@ -7,7 +7,7 @@ A durable, source-grounded knowledge repository designed for both human reading 
 ```text
 entries/
   briefs/<namespace>/YYYY/MM/YYYY-MM-DD--<descriptive-slug>.md
-  experiments/{proposed,active,completed}/exp-YYYY-MM-DD--<descriptive-slug>.md
+  experiments/{proposed,active,completed,abandoned}/exp-YYYY-MM-DD--<descriptive-slug>.md
 references/
   {papers,documentation,repositories,standards,web}/<stable-source-slug>.md
 catalog/
@@ -17,11 +17,13 @@ catalog/
 schema/
   entry.schema.json
   experiment.schema.json
+  reference.schema.json
 taxonomy/
   topics.yml
 templates/
   daily-brief.md
   experiment.md
+  reference.md
 ```
 
 Namespaces identify recurring streams such as `ai-knowledge`, `security`, or `health`. Topics are metadata because one entry can belong to several topics.
@@ -30,13 +32,15 @@ Namespaces identify recurring streams such as `ai-knowledge`, `security`, or `he
 
 Markdown is the source of truth. Each entry starts with JSON-formatted YAML front matter, which stays human-readable while allowing deterministic parsing. Stable IDs preserve identity if titles or filenames change.
 
-Run:
+Every record carries `"schema_version": 1`. Run validation and build the derived catalogs with:
 
 ```sh
-npm run catalog
+npm run check
 ```
 
-This generates:
+Validation rejects malformed front matter, duplicate IDs or canonical sources, unknown taxonomy topics, dangling relationships, and paths that disagree with record metadata.
+
+Catalog generation produces:
 
 - `catalog/entries.jsonl`: one record per knowledge entry
 - `catalog/references.jsonl`: one record per canonical source
@@ -57,3 +61,7 @@ Scheduled runs should compare findings with the previous 30 days, prefer primary
 ## References
 
 References are normalized, reusable provenance nodes. Briefs and experiments cite stable reference IDs while retaining readable inline links. Deduplicate sources by canonical URL, DOI, arXiv ID, or repository. Record access dates for mutable pages and store annotations or limited evidence rather than complete copyrighted works.
+
+## Generated catalogs and CI
+
+Markdown records are the source of truth. JSONL catalogs are generated build artifacts and are intentionally ignored by Git. Pull requests and pushes to `main` run validation, generate the catalogs, and upload them as a workflow artifact. The scheduled research task must not edit generated catalog files manually.
