@@ -6,6 +6,7 @@
   "kind": "experiment",
   "namespace": "ai-knowledge",
   "topics": [],
+  "references": [],
   "status": "proposed",
   "hypothesis": "A falsifiable prediction.",
   "success_criterion": "A measurable threshold.",
