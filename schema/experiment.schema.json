@@ -5,6 +5,7 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "schema_version",
     "id",
     "title",
     "date",
@@ -19,6 +20,9 @@
     "related"
   ],
   "properties": {
+    "schema_version": {
+      "const": 1
+    },
     "id": {
       "type": "string",
       "pattern": "^experiment:[a-z0-9:_-]+$"
