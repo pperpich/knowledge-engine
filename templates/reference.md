@@ -1,5 +1,6 @@
 ---
 {
+  "schema_version": 1,
   "id": "reference:publisher:stable-slug",
   "title": "Source title",
   "kind": "documentation",
