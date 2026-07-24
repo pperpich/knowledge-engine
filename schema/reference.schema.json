@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/pperpich/knowledge-engine/schema/reference.schema.json",
+  "title": "Reference metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "kind",
+    "publisher",
+    "canonical_url",
+    "published_at",
+    "accessed_at",
+    "authors",
+    "topics",
+    "reliability",
+    "mutable",
+    "status",
+    "identifiers",
+    "related"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^reference:[a-z0-9:_@.-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": ["paper", "documentation", "repository", "standard", "web"]
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "accessed_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "authors": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "topics": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "reliability": {
+      "enum": ["primary", "secondary", "tertiary"]
+    },
+    "mutable": {
+      "type": "boolean"
+    },
+    "status": {
+      "enum": ["active", "deprecated", "unavailable"]
+    },
+    "identifiers": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "related": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    }
+  }
+}
