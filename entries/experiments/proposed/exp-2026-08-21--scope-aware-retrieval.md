@@ -10,7 +10,7 @@
   "references": ["reference:arxiv:2608.20246"],
   "status": "proposed",
   "hypothesis": "For queries whose correct answer depends on an explicit metadata scope, applying that scope as a hard prefilter before otherwise identical dense retrieval will improve answer-bearing Recall@5 by at least 10 percentage points and end-to-end answer accuracy by at least 5 percentage points versus unfiltered dense retrieval.",
-  "success_criterion": "Across at least 60 paired questions, the scoped-query variant improves answer-bearing Recall@5 by at least 10 percentage points and answer accuracy by at least 5 percentage points, while overall answer accuracy remains at least 80%, citation correctness remains at least 85%, unscoped-query answer accuracy falls by no more than 3 percentage points, and no metadata subgroup regresses by more than 10 percentage points.",
+  "success_criterion": "Across at least 40 paired scoped questions, metadata filtering improves answer-bearing Recall@5 by at least 10 percentage points and answer accuracy by at least 5 percentage points. Across the full 60-question set, mean answer accuracy remains at least 80% and citation correctness remains at least 85%; across at least 20 unscoped control questions, answer accuracy falls by no more than 3 percentage points; and no metadata subgroup regresses by more than 10 percentage points in answer accuracy.",
   "stop_condition": "Stop after 120 question-variant evaluations, or after an interim analysis at 60 evaluations if the 95% confidence interval excludes a 5 percentage-point retrieval gain and the observed gain is below 2 percentage points, or if either variant's absolute answer accuracy falls below 70%.",
   "related": ["brief:ai-knowledge:2026-08-21"]
 }
