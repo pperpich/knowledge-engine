@@ -10,7 +10,7 @@
   "references": ["reference:arxiv:2608.25618"],
   "status": "proposed",
   "hypothesis": "For long-document questions that the current agent answers correctly, at least 15% of terminal working-memory records will fail a memory-only answerability test, revealing evidence loss that final-answer accuracy alone does not detect.",
-  "success_criterion": "Across at least 40 correctly answered questions spanning at least four document/topic groups, memory-only answerability is at least 90%, final-answer correctness remains at least 80% on the full evaluation set, and unsupported-claim rate remains below 5%; report a paired 95% bootstrap interval for the memory-only answerability rate and subgroup rates by topic.",
+  "success_criterion": "The hypothesis is supported if memory-only answerability is 85% or lower across at least 40 eligible trajectories and the paired 95% bootstrap interval does not exclude a 15% failure rate, while final-answer correctness remains at least 80% on the full evaluation set and unsupported-claim rate remains below 5%. Report subgroup rates by document/topic group; if the hypothesis is not supported, retain the measured rate as the audit result rather than treating the run as failed.",
   "stop_condition": "Stop after 60 total questions or after obtaining 40 correctly answered trajectories eligible for the memory-only audit, whichever comes first. Stop early after 20 eligible trajectories only if memory-only answerability is below 70%, because the failure mode is already large enough to justify remediation work.",
   "related": ["brief:ai-knowledge:2026-08-27"]
 }
@@ -40,7 +40,7 @@ This experiment measures that hidden failure mode without changing the model, re
 - **Memory evidence support:** the evaluator identifies memory statements that contain sufficient evidence for the answer rather than merely a conclusion.
 - **Unsupported claim:** a material factual claim in either the final answer or memory-only answer that is not supported by the retrieved evidence or terminal memory available to that scorer.
 
-Report final-answer correctness across all questions, memory-only answerability across eligible trajectories, memory evidence support, unsupported-claim rate, subgroup rates by document/topic group, and paired 95% bootstrap intervals where applicable.
+Report final-answer correctness across all questions, memory-only answerability across eligible trajectories, memory evidence support, unsupported-claim rate, subgroup rates by document/topic group, and paired 95% bootstrap intervals where applicable. The audit supports the hypothesis when the observed memory-only failure rate is at least 15%; a lower failure rate is still a valid negative result.
 
 ## Expected effort
 
