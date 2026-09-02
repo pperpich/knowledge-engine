@@ -10,7 +10,7 @@
   "entities": ["Claude Fable 5.1", "Claude Mythos 5.1", "Claude API", "Dense Process Supervision", "Fact Utility Estimation"],
   "references": ["reference:anthropic:claude-fable-5-1", "reference:arxiv:2609.00833"],
   "experiment": "experiment:2026-09-02:fact-utility-reranking",
-  "related": ["brief:ai-knowledge:2026-09-01", "brief:ai-knowledge:2026-08-27"],
+  "related": [],
   "confidence": "high",
   "status": "published"
 }
