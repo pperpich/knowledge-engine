@@ -27,10 +27,10 @@ The UnitBoost preprint proposes replacing a generative manager with a task-defin
 1. Build a fixed set of 60 multi-fact questions, stratified before scoring into three 20-question groups: AI-builder updates, knowledge-system research, and repository/policy synthesis. Each question must have 3 to 6 predefined answer units and an adjudicated answer key with source IDs.
 2. For every question, freeze the retrieved evidence set first. Generate exactly three candidate answers from the same model, prompt, temperature, tool access, and evidence. Randomize candidate production order once, record it, and reuse the cached candidates in both arms.
 3. Define an **answer unit** as one independently judgeable factual slot in the adjudicated key. Exclude a question at pilot time if two or more required slots are semantically coupled such that selecting one changes the correctness of another.
-4. Score every candidate unit against the frozen evidence using one fixed rubric. **Evidence-support score** is the mean of correctness support and citation support for that unit, each scored 0 or 1 by a blinded evaluator. Ties are broken by the recorded production order, earliest first.
-5. **Baseline:** choose one complete candidate, defined as the candidate with the highest mean evidence-support score across all required units. This is the "strongest complete candidate." Do not repair or merge it.
+4. Before looking at the adjudicated answer key, score each candidate unit against only its cited item in the frozen evidence set. **Evidence-support score** is 1 when that cited evidence directly entails the candidate unit and 0 otherwise, using a fixed entailment rubric and an evaluator blinded to both experimental arm and gold answer. A merely related source scores 0. Ties are broken by the recorded production order, earliest first.
+5. **Baseline:** choose one complete candidate, defined as the candidate with the highest mean evidence-support score across all mapped units. This is the "strongest complete candidate." Do not repair or merge it.
 6. **Treatment:** for each predefined answer unit, choose the candidate value with the highest evidence-support score and retain that value's source ID. If no candidate value receives direct evidence support, emit an explicit `unsupported` value rather than generating a replacement. Concatenate units in the predefined unit-map order.
-7. Blind final outputs to arm and score them against the same adjudicated answer key. Preserve per-question and per-topic results for paired analysis.
+7. Only after both arms are frozen, blind final outputs to arm and score them against the adjudicated answer key. Preserve per-question and per-topic results for paired analysis.
 
 ## Measurement
 
